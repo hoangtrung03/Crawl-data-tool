@@ -31,14 +31,25 @@ async function scrapeProductData(url, data) {
     //idcategory smart phone: 641a5fc38383ec002c66151f
     let category = "641a5fc38383ec002c66151f";
     let quantity = Math.floor(Math.random() * 200) + 60;
-    let sold = Number(quantity / 2);
+    let sold = Math.ceil(quantity / 2);
     let view = Math.floor(Math.random() * 1000) + 600;
     let randDecimal = Math.random() * (4 - 3 + 1) + 3;
     const rating = Number(randDecimal.toFixed(1));
     const images = [];
     $(".gallery-slide img").each(function () {
       const src = $(this).attr("src");
-      images.push(src);
+      if (images.length < 8) {
+        // Kiểm tra xem images đã có 8 phần tử chưa
+        images.push(src);
+      } else {
+        return false; // Ngắt vòng lặp each khi đã push đủ 8 phần tử
+      }
+    });
+    let description = "";
+    $(".technical-content .technical-content-item").each(function () {
+      let content = $(this).find("div").text().trim(); // Lấy nội dung trong thẻ div
+      let label = $(this).find("p").text().trim(); // Lấy nội dung trong thẻ p
+      description += `${label}: ${content}\n`; // Đưa các nội dung vào biến description, cách nhau bởi dấu ": "
     });
     console.log(images);
 
@@ -53,6 +64,7 @@ async function scrapeProductData(url, data) {
       sold,
       view,
       rating,
+      description,
     };
     // console.log(productData);
     let rawData = fs.readFileSync("data.json");
@@ -95,6 +107,6 @@ async function scrapeSite(url) {
 }
 
 urlArr.forEach((url) => {
-  console.log('Đang crawl data tại: ', url);
+  console.log("Đang crawl data tại: ", url);
   scrapeSite(url);
 });
