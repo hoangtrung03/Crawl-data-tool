@@ -1,6 +1,8 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
+
+//Smart Phone
 const urlArr = [
   "https://cellphones.com.vn/mobile/tecno.html",
   "https://cellphones.com.vn/mobile/asus.html",
@@ -12,6 +14,22 @@ const urlArr = [
   "https://cellphones.com.vn/mobile/samsung.html",
   "https://cellphones.com.vn/mobile/apple.html",
 ];
+//Laptop
+// const urlArr = [
+//   "https://cellphones.com.vn/laptop/mac.html",
+//   "https://cellphones.com.vn/laptop/hp.html",
+//   "https://cellphones.com.vn/laptop/dell.html",
+//   "https://cellphones.com.vn/laptop/asus.html",
+//   "https://cellphones.com.vn/laptop/lenovo.html",
+//   "https://cellphones.com.vn/laptop/acer.html",
+//   "https://cellphones.com.vn/laptop/xiaomi.html",
+//   "https://cellphones.com.vn/laptop/surface.html",
+//   "https://cellphones.com.vn/laptop/lg.html",
+//   "https://cellphones.com.vn/laptop/huawei.html",
+//   "https://cellphones.com.vn/laptop/msi.html",
+//   "https://cellphones.com.vn/laptop/gigabyte.html",
+//   "https://cellphones.com.vn/laptop/intel.html",
+// ];
 
 async function scrapeProductData(url, data) {
   try {
